@@ -2,9 +2,10 @@
 using MicrocapCustomerApp.Services.Iservices;
 using MicrocapCustomerApp.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MicrocapCustomerApp.Services
 {
@@ -98,7 +99,7 @@ namespace MicrocapCustomerApp.Services
 
             return "Registration was successful";
         }
-        public async Task<ListResult<CemesUsersViewodel>> CemesPortalUsersAsync()
+        public async Task<ActionResult<ListResult<CemesUsersViewodel>>> CemesPortalUsersAsync()
         {
 
             try
@@ -143,5 +144,48 @@ namespace MicrocapCustomerApp.Services
             }
 
         }
+        public async Task<ListResult<CustomerDetailsViewModel>> CustomerDetailsAsync(int custId)
+        {
+
+            try
+            {
+                var userdetails = new ListResult<CustomerDetailsViewModel>();
+
+
+                var custdetails = (from details in _context.customers
+                               .Where(u => u.UserId == custId)
+                               select new CustomerDetailsViewModel
+                               {
+
+                                   UserId = details.UserId,
+                                   Name = details.FIRSTNAME + " " + details.OTHERNAMES,
+                                   MOBILE_NUMBER = details.MOBILE_NUMBER,
+                                   LoanLimit = details.LoanLimit,
+                                   AverageCashSales = details.AverageCashSales,
+                                   BusinessName = details.BusinessName
+
+
+                               });
+
+
+                var customers = await custdetails
+                  //.OrderBy(u => u.UserId)
+                  .AsQueryable()
+                  .ToListAsync();
+
+                if (customers?.Count > 0)
+                    userdetails.Items = custdetails.Select(s => (CustomerDetailsViewModel)s).ToList();
+
+                return userdetails;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Something Happened" + ex);
+                throw;
+            }
+
+        }
+
+       
     }
 }

@@ -33,7 +33,6 @@ namespace MicrocapCustomerApp.ViewModels
     {
         [JsonIgnore]
         public int Id { get; set; }
-        
         public string CompanyName { get; set; }
         public string Location { get; set; }
       
@@ -59,6 +58,26 @@ namespace MicrocapCustomerApp.ViewModels
         public string MobileNo { get; set; }
         public string RoleID { get; set; }
 
+    }
+
+    public class ListResult<T>
+    {
+        public object Items { get; set; }
+    }
+    public class CustomerDetailsViewModel
+    {
+        [Key]
+        public int UserId { get; set; }
+        [JsonIgnore]
+        public string FIRSTNAME { get; set; }
+        [JsonIgnore]
+        public string OTHERNAMES { get; set; }
+        [NotMapped]
+        public string Name { get; set; }
+        public string MOBILE_NUMBER { get; set; }
+        public decimal LoanLimit { get; set; }
+        public decimal AverageCashSales { get; set; }
+        public string BusinessName { get; set; }
 
     }
 }

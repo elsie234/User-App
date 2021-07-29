@@ -12,7 +12,10 @@ namespace MicrocapCustomerApp.Context
     {
         public DbSet<UsersViewModel> Customers{ get; set; }
         public DbSet<CompanyViewModel> Company{ get; set; }
-        public DbSet<CompanyViewModel> usermaster { get; set; }
+        public DbSet<CemesUsersViewodel> usermaster { get; set; }
+        public DbSet<CustomerDetailsViewModel> customers { get; set; }
+        
+
 
 
         public MicroCapContext(DbContextOptions<MicroCapContext> options)

@@ -14,5 +14,7 @@ namespace MicrocapCustomerApp.Services.Iservices
         Task<object> RegisterCompanyAsync(CompanyViewModel company);
         Task<object> GetCompanyAsync();
         Task<ActionResult<ListResult<CemesUsersViewodel>>> CemesPortalUsersAsync();
+        Task<ListResult<CustomerDetailsViewModel>> CustomerDetailsAsync(int custId);
+
     }
 }

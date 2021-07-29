@@ -94,6 +94,20 @@ namespace MicrocapCustomerApp.Controllers
                 return BadRequest("Error.");
             }
         }
+
+        [HttpPost, Route("customerDetails")]
+        public async Task<ActionResult<ListResult<CustomerDetailsViewModel>>> CustomerDetailsAsync(int custId)
+        {
+            try
+            {
+
+                return Ok(await _customeAppService.CustomerDetailsAsync(custId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error finding details");
+            }
+        }
     }
 
 }
